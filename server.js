@@ -69,28 +69,64 @@ app.post('/api/submit-consultation', (req, res) => {
                 Selected_Doctor,
                 Preferred_Date,
                 Preferred_Time,
-                Consultation_Reason
+                Consultation_Reason,
+                Consultation_Type
             } = req.body;
 
             // Base email configuration
             const msg = {
                 to: 'bineeth.cp@gmail.com',
                 from: 'bineeth.cp@gmail.com',
-                subject: 'New Consultation Request from Swasthya',
+                subject: `Consultation Request - ${Consultation_Type}`,
                 html: `
-                    <h2>New Consultation Request</h2>
-                    <p><strong>Patient Name:</strong> ${Full_Name}</p>
-                    <p><strong>Mobile Number:</strong> ${Mobile_Number}</p>
-                    <p><strong>Email:</strong> ${Email}</p>
-                    <p><strong>Selected Doctor:</strong> ${Selected_Doctor}</p>
-                    <p><strong>Preferred Date:</strong> ${Preferred_Date}</p>
-                    <p><strong>Preferred Time:</strong> ${Preferred_Time}</p>
-                    <p><strong>Consultation Reason:</strong> ${Consultation_Reason}</p>
-                    ${req.files && req.files.length > 0 ? 
-                        `<p><strong>Attachments:</strong> ${req.files.length} file(s)</p>` : ''}
+                    <h2 style="color: #2c5282; text-align: center;">New Consultation Request</h2>
+                    <table style="width: 100%; border-collapse: collapse; border: 1px solid #ddd; font-family: Arial, sans-serif;">
+                        <tr style="background-color: #f8f9fa;">
+                            <th style="text-align: left; padding: 10px; border: 1px solid #ddd;">Field</th>
+                            <th style="text-align: left; padding: 10px; border: 1px solid #ddd;">Details</th>
+                        </tr>
+                        <tr>
+                            <td style="padding: 10px; border: 1px solid #ddd;"><strong>Patient Name</strong></td>
+                            <td style="padding: 10px; border: 1px solid #ddd;">${Full_Name}</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 10px; border: 1px solid #ddd;"><strong>Mobile Number</strong></td>
+                            <td style="padding: 10px; border: 1px solid #ddd;">${Mobile_Number}</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 10px; border: 1px solid #ddd;"><strong>Email</strong></td>
+                            <td style="padding: 10px; border: 1px solid #ddd;">
+                                <a href="mailto:${Email}" style="color: #007bff; text-decoration: none;">${Email}</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 10px; border: 1px solid #ddd;"><strong>Selected Doctor</strong></td>
+                            <td style="padding: 10px; border: 1px solid #ddd;">${Selected_Doctor}</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 10px; border: 1px solid #ddd;"><strong>Preferred Date</strong></td>
+                            <td style="padding: 10px; border: 1px solid #ddd;">${Preferred_Date}</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 10px; border: 1px solid #ddd;"><strong>Preferred Time</strong></td>
+                            <td style="padding: 10px; border: 1px solid #ddd;">${Preferred_Time}</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 10px; border: 1px solid #ddd;"><strong>Consultation Reason</strong></td>
+                            <td style="padding: 10px; border: 1px solid #ddd;">${Consultation_Reason}</td>
+                        </tr>
+                        ${req.files && req.files.length > 0 ? `
+                        <tr>
+                            <td style="padding: 10px; border: 1px solid #ddd;"><strong>Attachments</strong></td>
+                            <td style="padding: 10px; border: 1px solid #ddd;">${req.files.length} file(s) attached</td>
+                        </tr>` : ''}
+                    </table>
+                    <p style="text-align: center; margin-top: 20px;">
+                        <strong>Thank you for using Swasthya!</strong>
+                    </p>
                 `,
                 attachments: []
-            };
+            };            
 
             // Add attachments if files were uploaded
             if (req.files && req.files.length > 0) {
