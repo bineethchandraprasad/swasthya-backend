@@ -75,8 +75,8 @@ app.post('/api/submit-consultation', (req, res) => {
 
             // Base email configuration
             const msg = {
-                to: 'bineeth.cp@gmail.com',
-                from: 'bineeth.cp@gmail.com',
+                to: 'swasthya.consulting@gmail.com',
+                from: 'swasthya.consulting@gmail.com',
                 subject: `Consultation Request - ${Consultation_Type}`,
                 html: `
                     <h2 style="color: #2c5282; text-align: center;">New Consultation Request</h2>
